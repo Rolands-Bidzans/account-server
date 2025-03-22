@@ -60,6 +60,7 @@ public class AccountsController {
         }
     }
 
+
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteAccountDetails(@RequestParam
                                                                 @Email(message = "Invalid email format")
