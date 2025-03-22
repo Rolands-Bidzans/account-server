@@ -1,0 +1,27 @@
+package com.eazybytes.accounts.controllers;
+
+import com.eazybytes.accounts.entity.Accounts;
+import com.eazybytes.accounts.repository.AccountsRepository;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+// This allows to run tests in parallel
+// in aplication.properties we have server.port=0 -> means random
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class AccountsEntityTest {
+
+    @Autowired
+    private AccountsRepository accountsRepository;
+
+    @Test
+    public void testLoadAccountsEntity() {
+        Accounts accounts = accountsRepository.findById(1L).orElseThrow();
+        assertNotNull(accounts);
+    }
+}

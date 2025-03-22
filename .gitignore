@@ -1,0 +1,15 @@
+# Maven and Build directories
+target/
+
+# Maven Wrapper (if used)
+.mvn/
+
+# Spring Boot (application-specific)
+*.jar
+*.war
+
+# Java class files (compiled)
+*.class
+
+# IntelliJ IDEA
+.idea/
