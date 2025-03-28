@@ -68,5 +68,4 @@ public class AccountsServiceImpl  implements IAccountsService {
         accountsRepository.deleteByAccountNumber(account.getAccountNumber());
         return true;
     }
-
 }
