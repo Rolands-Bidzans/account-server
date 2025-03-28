@@ -18,8 +18,8 @@ import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class AccountControllerCreateAccountTest {
-    private Logger LOGGER = LoggerFactory.getLogger(AccountControllerCreateAccountTest.class);
+class AccountsControllerCreateAccountTest {
+    private Logger LOGGER = LoggerFactory.getLogger(AccountsControllerCreateAccountTest.class);
 
     @Autowired
     private AccountsController accountsController;

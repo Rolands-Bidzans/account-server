@@ -31,8 +31,8 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.UUID;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AccountControllerFetchAccountTest {
-    private Logger LOGGER = LoggerFactory.getLogger( AccountControllerFetchAccountTest.class);
+public class AccountsControllerFetchAccountTest {
+    private Logger LOGGER = LoggerFactory.getLogger( AccountsControllerFetchAccountTest.class);
 
     @Autowired
     private WebApplicationContext webApplicationContext;
