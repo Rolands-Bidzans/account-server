@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class AccountsServiceIntegrationTest {
+public class AccountsServiceImplIntegrationTest {
     @Autowired
     private AccountsServiceImpl accountsServiceImpl;
 
