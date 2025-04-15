@@ -35,14 +35,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
-      - name: Check what was installed
-        run: ls -la
-      - name: Get Commit IDs
-        run: git log -n 5 --pretty=oneline
-      - name: Get Commit ID
-        run: git log -n 5 --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1
+#      - name: Check what was installed
+#        run: ls -la
+#      - name: Get Commit IDs
+#        run: git log -n 5 --pretty=oneline
+#      - name: Get Commit ID
+#        run: git log -n 5 --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1
 #      - name: Get Changes
 #        run: git diff "0ab1d21e0dc4e9bfa4925348dfea81dd7469774a" --name-only | grep -v "~"
-      - name: Run all tests
-        run: mvn clean test
+#      - name: Run all tests
+#        run: mvn clean test
+      - name: Run tests
+        run: ./run_tests.sh
 
