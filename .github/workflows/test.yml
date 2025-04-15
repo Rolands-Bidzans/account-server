@@ -6,7 +6,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-#    services:
+    services:
+      rabbitmq:
+        image: rabbitmq:3.10.5-management
+        ports:
+          - 15672:15672
+          - 5672:5672
+      order-service:
+        image: rolandstech/order
+        ports:
+          - 8083:8083
+      notification-service:
+        image: rolandstech/notification-service
+        ports:
+          - 8082:8082
     steps:
       - name: Get Code
         uses: actions/checkout@v3
@@ -18,4 +31,6 @@ jobs:
         run: git log -n 5 --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1
       - name: Get Changes
         run: git diff "277a7ddcad34d1e17b5383a9c4189cb71349390d" --name-only | grep -v "~"
+      - name: Run all tests
+        run: mvn clean test
 
