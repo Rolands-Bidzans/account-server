@@ -10,7 +10,9 @@ jobs:
     steps:
       - name: Get Code
         uses: actions/checkout@v3
-      - name: Get Commit ID
+      - name: Get Commit IDs
         run: git log --pretty=oneline
+      - name: Get Commit ID
+        run: git log --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1
 #      - name: Get Changes
 #        run: git diff
