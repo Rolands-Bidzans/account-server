@@ -46,5 +46,7 @@ jobs:
 #      - name: Run all tests
 #        run: mvn clean test
       - name: Run tests
-        run: ./run_tests.sh
+        run: |
+          chmod +x run_tests.sh
+          ./run_tests.sh
 
