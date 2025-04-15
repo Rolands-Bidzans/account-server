@@ -30,7 +30,7 @@ jobs:
       - name: Get Commit ID
         run: git log -n 5 --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1
       - name: Get Changes
-        run: git diff "277a7ddcad34d1e17b5383a9c4189cb71349390d" --name-only | grep -v "~"
+        run: git diff "0ab1d21e0dc4e9bfa4925348dfea81dd7469774a" --name-only | grep -v "~"
       - name: Run all tests
         run: mvn clean test
 
