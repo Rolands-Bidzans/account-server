@@ -1,6 +1,6 @@
 package com.eazybytes.accounts.integration.repositories;
 
-import com.eazybytes.accounts.entities.Accounts;
+import com.eazybytes.accounts.entities.AccountsEntity;
 import com.eazybytes.accounts.repositories.AccountsRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ public class AccountsRepositoryIntegrationTest {
     @BeforeEach
     void setUp() {
         //Arrange
-        Accounts accounts = new Accounts();
+        AccountsEntity accounts = new AccountsEntity();
         accounts.setName(name);
         accounts.setEmail(email);
         accounts.setMobileNumber(mobileNumber);
@@ -39,7 +39,7 @@ public class AccountsRepositoryIntegrationTest {
     void testFindByEmail_whenGivenCorrectEmail_returnsAccountEntity(){
 
         //Act
-        Optional<Accounts> storedAccount = accountsRepository.findByEmail(email);
+        Optional<AccountsEntity> storedAccount = accountsRepository.findByEmail(email);
 
 //        LOGGER.info(storedAccount.toString());
 
@@ -60,7 +60,7 @@ public class AccountsRepositoryIntegrationTest {
     void testFindByEmail_whenGivenIncorrectEmail_returnsAccountEntity(){
 
         //Act
-        Optional<Accounts> storedAccount = accountsRepository.findByEmail("IncorrectEmail@gmail.com");
+        Optional<AccountsEntity> storedAccount = accountsRepository.findByEmail("IncorrectEmail@gmail.com");
 
 //        LOGGER.info(storedAccount.isEmpty() + "");
 
@@ -75,7 +75,7 @@ public class AccountsRepositoryIntegrationTest {
         //Act
         accountsRepository.deleteByAccountNumber(accountNumber);
 
-        Optional<Accounts> storedAccount = accountsRepository.findByEmail("IncorrectEmail@gmail.com");
+        Optional<AccountsEntity> storedAccount = accountsRepository.findByEmail("IncorrectEmail@gmail.com");
 
         //Assert
         Assertions.assertTrue(storedAccount.isEmpty());
@@ -89,7 +89,7 @@ public class AccountsRepositoryIntegrationTest {
         //Act
         accountsRepository.deleteByAccountNumber(invalidAccountNumber);
 
-        Optional<Accounts> storedAccount = accountsRepository.findByEmail(email);
+        Optional<AccountsEntity> storedAccount = accountsRepository.findByEmail(email);
 
 //        LOGGER.info(storedAccount.toString());
 

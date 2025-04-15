@@ -15,7 +15,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        bytecode:
+          use_reflection_optimizer: false
 
 rabbitmq:
   exchange:

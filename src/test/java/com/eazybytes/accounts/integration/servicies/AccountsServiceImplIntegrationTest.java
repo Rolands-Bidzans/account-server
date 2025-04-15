@@ -1,7 +1,7 @@
 package com.eazybytes.accounts.integration.servicies;
 
 import com.eazybytes.accounts.dto.AccountsDto;
-import com.eazybytes.accounts.entities.Accounts;
+import com.eazybytes.accounts.entities.AccountsEntity;
 import com.eazybytes.accounts.repositories.AccountsRepository;
 import com.eazybytes.accounts.service.impl.AccountsServiceImpl;
 import org.junit.jupiter.api.*;
@@ -31,7 +31,7 @@ public class AccountsServiceImplIntegrationTest {
     @Order(1)
     void testDeleteAccountByEmail() {
         // Arrange & Save
-        Accounts user1 = new Accounts();
+        AccountsEntity user1 = new AccountsEntity();
         user1.setAccountNumber(accountNumber2);
         user1.setEmail(email2);
         user1.setName("Rolands Bidzans");
@@ -50,7 +50,7 @@ public class AccountsServiceImplIntegrationTest {
     @Order(2)
     void testFetchAccount() {
         // Arrange & Save
-        Accounts user1 = new Accounts();
+        AccountsEntity user1 = new AccountsEntity();
         user1.setAccountNumber(accountNumber1);
         user1.setEmail(email1);
         user1.setName("Rolands Bidzans");
@@ -81,7 +81,7 @@ public class AccountsServiceImplIntegrationTest {
         accountsServiceImpl.updateAccount(userDto);
 
         // Assert: Verify deletion
-        Optional<Accounts> updatedAccount = accountsRepository.findByEmail(email1);
+        Optional<AccountsEntity> updatedAccount = accountsRepository.findByEmail(email1);
 
         Assertions.assertTrue(updatedAccount.isPresent());
         Assertions.assertEquals("Andrejs Kopnins", updatedAccount.get().getName());

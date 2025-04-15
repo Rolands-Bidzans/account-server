@@ -1,7 +1,7 @@
 package com.eazybytes.accounts.service.impl;
 
 import com.eazybytes.accounts.dto.AccountsDto;
-import com.eazybytes.accounts.entities.Accounts;
+import com.eazybytes.accounts.entities.AccountsEntity;
 import com.eazybytes.accounts.exception.AccountAlreadyExistsException;
 import com.eazybytes.accounts.exception.ResourceNotFoundException;
 import com.eazybytes.accounts.mapper.AccountsMapper;
@@ -21,8 +21,8 @@ public class AccountsServiceImpl  implements IAccountsService {
 
     @Override
     public void createAccount(@Valid AccountsDto accountDto) {
-        Accounts account = AccountsMapper.mapToAccounts(accountDto, new Accounts());
-        Optional<Accounts > optionalAccount = accountsRepository.findByEmail(accountDto.getEmail());
+        AccountsEntity account = AccountsMapper.mapToAccounts(accountDto, new AccountsEntity());
+        Optional<AccountsEntity> optionalAccount = accountsRepository.findByEmail(accountDto.getEmail());
         if(optionalAccount.isPresent()) {
             throw new AccountAlreadyExistsException("Account already registered with given Email "
                     + accountDto.getEmail());
@@ -32,7 +32,7 @@ public class AccountsServiceImpl  implements IAccountsService {
 
     @Override
     public AccountsDto fetchAccount(String email) {
-        Accounts accounts = accountsRepository.findByEmail(email).orElseThrow(
+        AccountsEntity accounts = accountsRepository.findByEmail(email).orElseThrow(
                 () -> new ResourceNotFoundException("Account", "Email", email)
         );
         AccountsDto accountDto = AccountsMapper.mapToAccountsDto(accounts, new AccountsDto());
@@ -43,7 +43,7 @@ public class AccountsServiceImpl  implements IAccountsService {
     public boolean updateAccount(AccountsDto accountsDto) {
         boolean isUpdated = false;
         if(accountsDto !=null ){
-            Accounts accounts = accountsRepository.findByEmail(accountsDto.getEmail()).orElseThrow(
+            AccountsEntity accounts = accountsRepository.findByEmail(accountsDto.getEmail()).orElseThrow(
                     () -> new ResourceNotFoundException("Account", "Email", accountsDto.getEmail().toString())
             );
 
@@ -61,7 +61,7 @@ public class AccountsServiceImpl  implements IAccountsService {
 
     @Override
     public boolean deleteAccount(String email) {
-        Accounts account = accountsRepository.findByEmail(email).orElseThrow(
+        AccountsEntity account = accountsRepository.findByEmail(email).orElseThrow(
                 () -> new ResourceNotFoundException("Account", "email", email)
         );
 

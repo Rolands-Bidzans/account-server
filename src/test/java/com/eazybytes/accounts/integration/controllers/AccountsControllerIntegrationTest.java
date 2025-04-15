@@ -2,7 +2,7 @@ package com.eazybytes.accounts.integration.controllers;
 
 import com.eazybytes.accounts.dto.AccountsDto;
 import com.eazybytes.accounts.dto.ResponseDto;
-import com.eazybytes.accounts.entities.Accounts;
+import com.eazybytes.accounts.entities.AccountsEntity;
 import com.eazybytes.accounts.mapper.AccountsMapper;
 import com.eazybytes.accounts.repositories.AccountsRepository;
 import org.junit.jupiter.api.*;
@@ -55,11 +55,11 @@ class AccountsControllerIntegrationTest {
     @Order(1)
     public void testCreateAccount_whenValidDetailsProvided_returnsCorrectStatusCode() throws Exception {
         // Arrange
-        Accounts accounts = AccountsMapper.mapToAccounts(accountDto, new Accounts());
+        AccountsEntity accounts = AccountsMapper.mapToAccounts(accountDto, new AccountsEntity());
 
         // Mock behavior: No existing account found
         Mockito.when(accountsRepository.findByEmail(Mockito.anyString())).thenReturn(Optional.empty());
-        Mockito.when(accountsRepository.save(Mockito.any(Accounts.class))).thenReturn(accounts);
+        Mockito.when(accountsRepository.save(Mockito.any(AccountsEntity.class))).thenReturn(accounts);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -88,7 +88,7 @@ class AccountsControllerIntegrationTest {
     @Order(2)
     public void testCreateAccount_whenExistingUserDetailsProvided_returns400() throws Exception {
         // Arrange
-        Accounts account = AccountsMapper.mapToAccounts(accountDto, new Accounts());
+        AccountsEntity account = AccountsMapper.mapToAccounts(accountDto, new AccountsEntity());
 
         // Mock behavior: No existing account found
         Mockito.when(accountsRepository.findByEmail(Mockito.anyString())).thenReturn(Optional.of(account));
@@ -122,7 +122,7 @@ class AccountsControllerIntegrationTest {
     public void testFetchAccount_whenValidDetailsProvided_returnsCorrectStatusCode() throws Exception {
 
         // Arrange
-        Accounts account = AccountsMapper.mapToAccounts(accountDto, new Accounts());
+        AccountsEntity account = AccountsMapper.mapToAccounts(accountDto, new AccountsEntity());
 
         // Mock behavior: No existing account found
         Mockito.when(accountsRepository.findByEmail(Mockito.anyString())).thenReturn(Optional.of(account));
@@ -178,13 +178,13 @@ class AccountsControllerIntegrationTest {
     public void testUpdateAccount_whenValidDetailsProvided_returnsCorrectStatusCode() throws Exception {
         // Arrange
         accountDto.setName("Rolands Bidzans");
-        Accounts account = AccountsMapper.mapToAccounts(accountDto, new Accounts());
+        AccountsEntity account = AccountsMapper.mapToAccounts(accountDto, new AccountsEntity());
 
         // Mock behavior:
         // Account with provided email is found
         Mockito.when(accountsRepository.findByEmail(Mockito.anyString())).thenReturn(Optional.of(account));
         // Update account in repository
-        Mockito.when(accountsRepository.save(Mockito.any(Accounts.class))).thenReturn(account);
+        Mockito.when(accountsRepository.save(Mockito.any(AccountsEntity.class))).thenReturn(account);
 
         // Create a HttpEntity with the correct body
         HttpHeaders headers = new HttpHeaders();
@@ -244,7 +244,7 @@ class AccountsControllerIntegrationTest {
     @DisplayName("Delete existing Account")
     public void testDeleteAccount_whenValidDetailsProvided_returnsSuccess() throws Exception {
         // Arrange
-        Accounts account = AccountsMapper.mapToAccounts(accountDto, new Accounts());
+        AccountsEntity account = AccountsMapper.mapToAccounts(accountDto, new AccountsEntity());
 
         // Mock behavior:
         // Account with provided email is found
@@ -275,7 +275,7 @@ class AccountsControllerIntegrationTest {
     @DisplayName("Delete non existing Account")
     public void testDeleteAccount_whenInvalidDetailsProvided_returnsError() throws Exception {
         // Arrange
-        Accounts account = AccountsMapper.mapToAccounts(accountDto, new Accounts());
+        AccountsEntity account = AccountsMapper.mapToAccounts(accountDto, new AccountsEntity());
 
         // Mock behavior:
         // Account with provided email is found

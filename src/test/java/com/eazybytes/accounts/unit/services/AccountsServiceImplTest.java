@@ -1,7 +1,7 @@
 package com.eazybytes.accounts.unit.services;
 
 import com.eazybytes.accounts.dto.AccountsDto;
-import com.eazybytes.accounts.entities.Accounts;
+import com.eazybytes.accounts.entities.AccountsEntity;
 import com.eazybytes.accounts.exception.AccountAlreadyExistsException;
 import com.eazybytes.accounts.exception.ResourceNotFoundException;
 import com.eazybytes.accounts.repositories.AccountsRepository;
@@ -36,8 +36,8 @@ public class AccountsServiceImplTest {
 
     private String noneExistingAccountEmail = "RB@example.com";
 
-    private Accounts initialAccount;
-    private Accounts updatedAccount;
+    private AccountsEntity initialAccount;
+    private AccountsEntity updatedAccount;
     private AccountsDto initialAccountDto;
     AccountsDto updatedAccountDto;
 
@@ -46,14 +46,14 @@ public class AccountsServiceImplTest {
         // Arrange
 
         // ENTITY INITIAL
-        initialAccount = new Accounts();
+        initialAccount = new AccountsEntity();
         initialAccount.setAccountNumber(initialAccountNumber);
         initialAccount.setEmail(initialAccountEmail);
         initialAccount.setName(initialName);
         initialAccount.setMobileNumber(initialAccountMobileNumber);
 
         // ENTITY UPDATED
-        updatedAccount = new Accounts();
+        updatedAccount = new AccountsEntity();
         updatedAccount.setAccountNumber(initialAccountNumber);
         updatedAccount.setEmail(initialAccountEmail);
         updatedAccount.setName(updatedName);
@@ -84,7 +84,7 @@ public class AccountsServiceImplTest {
         accountServiceImpl.createAccount(initialAccountDto);
 
         // Verify the repository method was called
-        Mockito.verify(accountsRepository).save(Mockito.any(Accounts.class));
+        Mockito.verify(accountsRepository).save(Mockito.any(AccountsEntity.class));
         Mockito.verify(accountsRepository, Mockito.times(1)).findByEmail(initialAccount.getEmail());
     }
 
@@ -103,7 +103,7 @@ public class AccountsServiceImplTest {
 
         // Verify repository calls (save should NOT be called)
         Mockito.verify(accountsRepository, Mockito.times(1)).findByEmail(initialAccount.getEmail());
-        Mockito.verify(accountsRepository, Mockito.never()).save(Mockito.any(Accounts.class));
+        Mockito.verify(accountsRepository, Mockito.never()).save(Mockito.any(AccountsEntity.class));
     }
 
     @Test

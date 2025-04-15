@@ -28,12 +28,12 @@ public class AccountsEntityUnitTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
-    Accounts accountsEntity;
+    AccountsEntity accountsEntity;
 
     @BeforeEach
     void setUp() {
         //Arrange
-        accountsEntity = new Accounts();
+        accountsEntity = new AccountsEntity();
         accountsEntity.setAccountNumber("account_" + System.currentTimeMillis());
         accountsEntity.setName("Rolands Bidzans");
         accountsEntity.setEmail("Rolandsnorigas@gmail.com");
@@ -44,7 +44,7 @@ public class AccountsEntityUnitTest {
     @Transactional
     void testUserEntity_whenValidUserDetailsProvided_shouldReturnStoredUserCustomerId() {
         //Act
-        Accounts storedUserDetails = testEntityManager.persistAndFlush(accountsEntity);
+        AccountsEntity storedUserDetails = testEntityManager.persistAndFlush(accountsEntity);
 
         //Assert
         Assertions.assertEquals(storedUserDetails.getAccountNumber(), accountsEntity.getAccountNumber(), "User Account Number not same");
@@ -54,7 +54,7 @@ public class AccountsEntityUnitTest {
     @Transactional
     void testUserEntity_whenValidUserDetailsProvided_shouldReturnStoredUserDetails() {
         //Act
-        Accounts storedUserDetails = testEntityManager.persistAndFlush(accountsEntity);
+        AccountsEntity storedUserDetails = testEntityManager.persistAndFlush(accountsEntity);
 
         //Assert
         Assertions.assertEquals(storedUserDetails.getName(),accountsEntity.getName(), "User Name not same");
