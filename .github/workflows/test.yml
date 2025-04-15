@@ -47,6 +47,8 @@ jobs:
 #        run: mvn clean test
       - name: Run tests
         run: |
+          chmod +x get_hierarchy_classes.sh
+          chmod +x get_dependency_tree.sh
           chmod +x run_tests.sh
           ./run_tests.sh
 
