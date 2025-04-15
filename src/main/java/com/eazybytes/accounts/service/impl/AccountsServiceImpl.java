@@ -30,6 +30,7 @@ public class AccountsServiceImpl  implements IAccountsService {
         accountsRepository.save(account);
     }
 
+
     @Override
     public AccountsDto fetchAccount(String email) {
         AccountsEntity accounts = accountsRepository.findByEmail(email).orElseThrow(
