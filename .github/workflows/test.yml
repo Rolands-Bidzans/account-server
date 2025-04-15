@@ -21,6 +21,16 @@ jobs:
         ports:
           - 8082:8082
     steps:
+      - name: Download dependencies
+        run: |
+          git clone https://github.com/universal-ctags/ctags.git
+          cd ctags
+          ./autogen.sh
+          ./configure
+          make
+          sudo make install
+      - name: Print ctag version
+        run: ctags --version
       - name: Get Code
         uses: actions/checkout@v3
         with:
@@ -29,8 +39,8 @@ jobs:
         run: git log -n 5 --pretty=oneline
       - name: Get Commit ID
         run: git log -n 5 --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1
-      - name: Get Changes
-        run: git diff "0ab1d21e0dc4e9bfa4925348dfea81dd7469774a" --name-only | grep -v "~"
+#      - name: Get Changes
+#        run: git diff "0ab1d21e0dc4e9bfa4925348dfea81dd7469774a" --name-only | grep -v "~"
       - name: Run all tests
         run: mvn clean test
 
