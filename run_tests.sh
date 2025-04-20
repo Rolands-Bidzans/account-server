@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Step 1: Get commit ID
-commit_hash=$(git log --pretty=oneline | head -n1 | cut -d' ' -f1)
+commit_hash=$(git log --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1)
 
 echo "COMMIT HASH:"
 echo "$commit_hash"
