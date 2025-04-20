@@ -1,8 +1,7 @@
-
 #!/bin/bash
 
 # Step 1: Get commit ID
-commit_hash=$(git log --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1)
+commit_hash=$(git log --pretty=oneline | head -n1 | cut -d' ' -f1)
 
 echo "COMMIT HASH:"
 echo "$commit_hash"
@@ -15,13 +14,22 @@ echo "$changed_files"
 
 # Step 3: Extract the class names from the file paths
 class_names=($(echo "$changed_files" | sed -n 's|.*/\([^/]*\)\.java$|\1|p'))
-
-# Step 4: Find files that relly on changed classes
 echo "CHANGED FILES NAMES:"
 echo "${class_names[@]}"
 
-mapfile -t dependency_tree < <(./get_dependency_tree.sh)
+
+# Step 4: Find files that relly on changed classes
 CLASSES=()
+# Step 4: Find files that relly on changed classes
+for class in $class_names; do
+   for file in $(grep -r -l --include="*.java" "${class%.java}" src/main/java/); do
+     CLASSES+="$(basename "$file" .java) "
+   done
+done
+echo "CLASSES THE USE CHANGED CLASSES:"
+echo "${CLASSES[@]}"
+
+mapfile -t dependency_tree < <(./get_dependency_tree.sh)
 # Step 5: For each class name, call get_hierarchy_classes.sh to get the hierarchy
 for class in "${class_names[@]}"; do
    # Use mapfile to capture multi-line output safely
