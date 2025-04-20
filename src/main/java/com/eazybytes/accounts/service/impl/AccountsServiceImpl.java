@@ -19,7 +19,6 @@ public class AccountsServiceImpl  implements IAccountsService {
 
     private AccountsRepository accountsRepository;
 
-
     @Override
     public void createAccount(@Valid AccountsDto accountDto) {
         AccountsEntity account = AccountsMapper.mapToAccounts(accountDto, new AccountsEntity());
