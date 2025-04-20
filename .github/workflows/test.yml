@@ -36,6 +36,8 @@ jobs:
           ./configure --prefix=$HOME/.local/ctags
           make -j$(nproc)
           make install
+      - name: Add ctags to PATH
+        run: echo "$HOME/.local/ctags/bin" >> $GITHUB_PATH
       - name: Print ctag version
         run: ctags --version
       - name: Get Code
