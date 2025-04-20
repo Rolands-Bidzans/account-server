@@ -25,8 +25,9 @@ jobs:
         id: ctags-cache
         uses: actions/cache@v3
         with:
-          path: ~/.local/bin/ctags
-          key: ctags-${{ runner.os }}-universal-ctags
+          path: |
+            ~/.local/ctags
+          key: ctags-${{ runner.os }}-${{ hashFiles('**/ctags-cache-key.txt') }}
       - name: Download ctags
         if: steps.ctags-cache.outputs.cache-hit != 'true'
         run: |
