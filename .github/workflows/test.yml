@@ -25,8 +25,7 @@ jobs:
         id: ctags-cache
         uses: actions/cache@v3
         with:
-          path: |
-            ~/.local/ctags
+          path: ~/.local/ctags
           key: ctags-${{ runner.os }}-${{ hashFiles('**/ctags-cache-key.txt') }}
       - name: Download ctags
         if: steps.ctags-cache.outputs.cache-hit != 'true'
@@ -34,9 +33,9 @@ jobs:
           git clone https://github.com/universal-ctags/ctags.git
           cd ctags
           ./autogen.sh
-          ./configure
-          make
-          sudo make install
+          ./configure --prefix=$HOME/.local/ctags
+          make -j$(nproc)
+          make install
       - name: Print ctag version
         run: ctags --version
       - name: Get Code
