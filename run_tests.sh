@@ -29,15 +29,15 @@ done
 echo "CLASSES THE USE CHANGED CLASSES:"
 echo "${CLASSES[@]}"
 
-mapfile -t dependency_tree < <(./get_dependency_tree.sh)
+#mapfile -t dependency_tree < <(./get_dependency_tree.sh)
 # Step 5: For each class name, call get_hierarchy_classes.sh to get the hierarchy
-for class in "${class_names[@]}"; do
+#for class in "${class_names[@]}"; do
    # Use mapfile to capture multi-line output safely
-   mapfile -t temp_classes < <(./get_hierarchy_classes.sh "$class" "${dependency_tree[@]}" | sort | uniq)
+#   mapfile -t temp_classes < <(./get_hierarchy_classes.sh "$class" "${dependency_tree[@]}" | sort | uniq)
 
    # Append to the main array
-   CLASSES+=("${temp_classes[@]}")
-done
+#   CLASSES+=("${temp_classes[@]}")
+#done
 
 echo "Find src files with path that contain extracted class names ..."
 src_files_with_path=$(
