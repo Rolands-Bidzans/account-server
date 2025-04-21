@@ -4,7 +4,7 @@ import com.eazybytes.accounts.constants.OrdersConstants;
 import com.eazybytes.accounts.dto.OrdersDto;
 import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.publisher.NotificationProducer;
-import com.eazybytes.accounts.service.IOrderService;
+import com.eazybytes.accounts.service.impl.OrderServiceImpl;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class OrderController {
     private NotificationProducer notificationProducer;
 
     @Autowired
-    private IOrderService iOrderService;
+    private OrderServiceImpl iOrderService;
 
     @Autowired
     WebClient webClient;

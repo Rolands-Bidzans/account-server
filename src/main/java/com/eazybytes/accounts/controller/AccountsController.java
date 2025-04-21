@@ -3,7 +3,7 @@ package com.eazybytes.accounts.controller;
 import com.eazybytes.accounts.constants.AccountsConstants;
 import com.eazybytes.accounts.dto.AccountsDto;
 import com.eazybytes.accounts.dto.ResponseDto;
-import com.eazybytes.accounts.service.IAccountsService;
+import com.eazybytes.accounts.service.impl.AccountsServiceImpl;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ import java.util.UUID;
 @Validated
 public class AccountsController {
 
-    private IAccountsService iAccountsService;
+    private AccountsServiceImpl iAccountsService;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody AccountsDto accountDto) {
