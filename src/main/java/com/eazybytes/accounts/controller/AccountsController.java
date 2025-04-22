@@ -25,7 +25,6 @@ import java.util.UUID;
 @Validated
 public class AccountsController {
 
-
     private IAccountsService iAccountsService;
 
     @PostMapping("/create")

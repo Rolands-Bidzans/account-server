@@ -91,7 +91,7 @@ echo -e "$unique_test_files\n\n"
 
 
 # Step 6: Extract the class names from the test files
-final_files_names=$(echo "$unique_test_files" | sed -n 's|.*/\([^/]*\)\.java$|\1|p')
+final_files_names=$(echo "$unique_test_files" | xargs -n 1 basename | sed 's/.java$//')
 echo "Extract the class names from the test files ..."
 echo -e "$final_files_names\n\n"
 
