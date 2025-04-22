@@ -26,8 +26,11 @@ for class in $class_names; do
      CLASSES+="$(basename "$file" .java) "
    done
 done
-echo "CLASSES THE USE CHANGED CLASSES:"
-echo "${CLASSES[@]}"
+echo "CLASSES THAT RELY ON CHANGED CLASSES:"
+
+for class in "${CLASSES[@]}"; do
+    echo "$class"
+done
 
 #mapfile -t dependency_tree < <(./get_dependency_tree.sh)
 # Step 5: For each class name, call get_hierarchy_classes.sh to get the hierarchy

@@ -20,6 +20,4 @@ public class AccountsDto {
     @NotEmpty(message = "MobileNumber can not be a null or empty")
     @Pattern(regexp="(^$|[0-9]{8})",message = "Mobile number must be 8 digits")
     private String mobileNumber;
-
-
 }
