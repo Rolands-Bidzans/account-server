@@ -27,8 +27,6 @@ public class AccountsServiceImpl  implements IAccountsService {
         if(optionalAccount.isPresent()) {
             throw new AccountAlreadyExistsException("Account already registered with given Email "
                     + accountDto.getEmail());
-
-
         }
         accountsRepository.save(account);
     }
