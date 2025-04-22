@@ -7,8 +7,6 @@ import lombok.Data;
 
 @Data
 public class AccountsDto {
-
-
     private String accountNumber;
 
     @NotEmpty(message = "Name can not be a null or empty")
