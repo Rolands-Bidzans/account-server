@@ -2,16 +2,18 @@
 
 # Step 1: Get commit ID
 commit_hash=$(git log --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1)
+
 echo "COMMIT HASH:"
 echo "$commit_hash"
 
 # Step 2: Get the list of changed files
 changed_files=$(git diff "$commit_hash" --name-only | grep -v "~")
+
 echo "CHANGED FILES:"
 echo "$changed_files"
 
 # Step 3: Extract the class names from the file paths
-class_names=($(echo "$changed_files" | xargs -n 1 basename))
+class_names=($(echo "$changed_files" | sed -n 's|.*/\([^/]*\)\.java$|\1|p'))
 echo "CHANGED FILES NAMES:"
 echo "${class_names[@]}"
 
@@ -43,14 +45,16 @@ src_files_with_path=$(
 		grep -rl "$class" src/main/*; 
 	done)
 
-# Extract the file name without the path and .java extension
+# Loop through each file path and get the file name
 for file in $src_files_with_path; do
+    # Extract the file name without the path and .java extension
     file_name=$(basename "$file" .java)
     CLASSES+=("$file_name")
 done
 
 # Step 5: Sort and remove duplicates
-unique_classes=($(printf "%s\n" "${CLASSES[@]}" | sort | uniq))
+# Sort and remove duplicates from the CLASSES array
+unique_classes=($(printf "%s\n" "${CLASSES[@]}" | sort -u))
 
 # Print the sorted and unique values
 printf "%s\n" "${unique_classes[@]}"
