@@ -16,19 +16,7 @@ echo "CHANGED FILES NAMES:"
 echo "${class_names[@]}"
 
 
-# Step 4: Find files that relly on changed classes
 CLASSES=()
-# Step 4: Find files that relly on changed classes
-#for class in $class_names; do
-#   for file in $(grep -r -l --include="*.java" "${class%.java}" src/main/java/); do
-#     CLASSES+="$(basename "$file" .java) "
-#   done
-#done
-#echo "CLASSES THAT RELY ON CHANGED CLASSES:"
-#
-#for class in "${CLASSES[@]}"; do
-#    echo "$class"
-#done
 
 #mapfile -t dependency_tree < <(./get_dependency_tree.sh)
 # Step 5: For each class name, call get_hierarchy_classes.sh to get the hierarchy
@@ -84,23 +72,23 @@ echo "Test files that start with extracted class names:"
 echo -e "$test_files\n\n"
 
 
-# Step 5: Sort and remove duplicates
+# Step 9: Sort and remove duplicates
 unique_test_files=$(echo "$test_files" | sort | uniq)
 echo "Sort and remove duplicates ..."
 echo -e "$unique_test_files\n\n"
 
 
-# Step 6: Extract the class names from the test files
+# Step 10: Extract the class names from the test files
 final_files_names=$(echo "$unique_test_files" | xargs -n 1 basename | sed 's/.java$//')
 echo "Extract the class names from the test files ..."
 echo -e "$final_files_names\n\n"
 
-# Step 7: Combine the class names into a comma-separated list
+# Step 11: Combine the class names into a comma-separated list
 test_files_to_run=$(echo "$final_files_names" | tr '\n' ',' | sed 's/,$//')
 echo "Combine the class names into a comma-separated list ..."
 echo -e "$test_files_to_run\n\n"
 
-
+# Step 11: Run Tests
 echo "Run Tests ..."
 mvn clean test -Dtest="$test_files_to_run" -DfailIfNoTests=false
 
