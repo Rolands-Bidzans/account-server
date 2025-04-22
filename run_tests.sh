@@ -14,7 +14,7 @@ echo "$changed_files"
 
 # Step 3: Extract the class names from the file paths
 #class_names=($(echo "$changed_files" | sed -n 's|.*/\([^/]*\)\.java$|\1|p'))
-class_names=($(echo "$changed_files" | xargs -n 1 basename))
+class_names=($(echo "$changed_files" | xargs -n 1 basename | sed 's/.java$//'))
 echo "CHANGED FILES NAMES:"
 echo "${class_names[@]}"
 
