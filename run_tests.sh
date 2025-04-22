@@ -2,13 +2,11 @@
 
 # Step 1: Get commit ID
 commit_hash=$(git log --pretty=oneline | head -n2 | tail -n1 | cut -d' ' -f1)
-
 echo "COMMIT HASH:"
 echo "$commit_hash"
 
 # Step 2: Get the list of changed files
 changed_files=$(git diff "$commit_hash" --name-only | grep -v "~")
-
 echo "CHANGED FILES:"
 echo "$changed_files"
 
@@ -21,16 +19,16 @@ echo "${class_names[@]}"
 # Step 4: Find files that relly on changed classes
 CLASSES=()
 # Step 4: Find files that relly on changed classes
-for class in $class_names; do
-   for file in $(grep -r -l --include="*.java" "${class%.java}" src/main/java/); do
-     CLASSES+="$(basename "$file" .java) "
-   done
-done
-echo "CLASSES THAT RELY ON CHANGED CLASSES:"
-
-for class in "${CLASSES[@]}"; do
-    echo "$class"
-done
+#for class in $class_names; do
+#   for file in $(grep -r -l --include="*.java" "${class%.java}" src/main/java/); do
+#     CLASSES+="$(basename "$file" .java) "
+#   done
+#done
+#echo "CLASSES THAT RELY ON CHANGED CLASSES:"
+#
+#for class in "${CLASSES[@]}"; do
+#    echo "$class"
+#done
 
 #mapfile -t dependency_tree < <(./get_dependency_tree.sh)
 # Step 5: For each class name, call get_hierarchy_classes.sh to get the hierarchy
@@ -42,33 +40,34 @@ done
 #   CLASSES+=("${temp_classes[@]}")
 #done
 
-echo "Find src files with path that contain extracted class names ..."
+# Step 4: Find files that relly on changed classes
 src_files_with_path=$(
 	for class in "${class_names[@]}"; do 
 		grep -rl "$class" src/main/*; 
 	done)
+echo "CLASSES THAT RELY ON CHANGED CLASSES:"
+echo "${src_files_with_path[@]}"
 
-# Loop through each file path and get the file name
+# Step 5: Loop through each file path and get the file name
 for file in $src_files_with_path; do
     # Extract the file name without the path and .java extension
     file_name=$(basename "$file" .java)
     CLASSES+=("$file_name")
 done
 
-# Step 5: Sort and remove duplicates
-# Sort and remove duplicates from the CLASSES array
+# Step 7: Sort and remove duplicates
 unique_classes=($(printf "%s\n" "${CLASSES[@]}" | sort -u))
 
 # Print the sorted and unique values
-printf "%s\n" "${unique_classes[@]}"
+echo "FILES THAT SHOULD BE TESTED:"
+echo "${unique_classes[@]}"
 
 
-# Step 4: Find files that names start with class names that were modified
 test_files=""
 
-# Loop through each class name and find corresponding test files
+# Step 8: Find files that names start with class names that were modified
 for class_name in "${unique_classes[@]}"; do
-    # Ensure no leading/trailing spaces in the class name
+    # Remove spaces
     class_name=$(echo "$class_name" | xargs)
 
     # Find matching files, case-insensitive, and ensure it matches the file names
